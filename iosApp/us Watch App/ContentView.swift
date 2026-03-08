@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import WatchKit
 
 struct ContentView: View {
     var body: some View {
-        Text("Welcome to us")
+        Text("tap")
+            .onTapGesture(){
+                WKInterfaceDevice.current().play(.click)
+            }
     }
 }
-
 #Preview {
     ContentView()
 }
