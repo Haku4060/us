@@ -8,8 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var position = CGPoint.zero;
+    
     var body: some View {
-        Text("Welcome to us")
+        Rectangle()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
+            .foregroundColor(.black)
+            .onTapGesture {
+                location in position = location
+                print(position)
+            }
     }
 }
 
