@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import WatchKit
 
 struct ContentView: View {
     
     @State private var rippleLocation: CGPoint = .zero
     @State private var rippleScale: CGFloat = 0.1
     @State private var rippleOpacity: Double = 0
-    
+  
     var body: some View {
         ZStack {
                     // Your main background content
@@ -28,8 +29,10 @@ struct ContentView: View {
                 .contentShape(Rectangle())
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea()// Makes the whole area tappable
-                .onTapGesture { location in
-                    triggerRipple(at: location)                }
+                .onTapGesture { location in 
+                    triggerRipple(at: location)
+                    WKInterfaceDevice.current().play(.click)
+                    }
             }
             
             func triggerRipple(at location: CGPoint) {
@@ -42,8 +45,9 @@ struct ContentView: View {
                     rippleOpacity = 0
                 }
             }
+    }       
     }
-
+}
 
 #Preview {
     ContentView()
