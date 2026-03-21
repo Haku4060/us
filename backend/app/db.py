@@ -1,7 +1,7 @@
 db = {
         1000:{
          "user_name":"Haku",
-         "status": "offline",
+         "status": "online",
         },
         1001:{
          "user_name":"Ira",

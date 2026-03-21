@@ -13,11 +13,38 @@ struct ContentView: View {
     @State private var rippleLocation: CGPoint = .zero
     @State private var rippleScale: CGFloat = 0.1
     @State private var rippleOpacity: Double = 0
+    @State private var userName = "Loading..."
+    @State private var userStatus = "Loading..."
+    @State private var statusColor = Color.white
   
     var body: some View {
-        ZStack {
+        VStack {
                     // Your main background content
                     Color.black.ignoresSafeArea()
+                    Text(userName)
+                        .task {
+                            do {
+                                userName = try await getUserName(userId: 1000)
+                            } catch {
+                                userName = "Failed to load"
+                                print(error)
+                            }
+                        }
+                    Text(userStatus)
+                        .foregroundStyle(statusColor)
+                        .task {
+                            do{
+                                userStatus = try await getUserStatus(userId: 1000)
+                            }catch{
+                                userStatus = "No connection"
+                                print(error)
+                            }
+                            if(userStatus == "offline"){
+                                statusColor = Color.red
+                            }else if(userStatus == "online"){
+                                statusColor = Color.green
+                            }
+                        }
                     // The Ripple Effect
                     Circle()
                         .stroke(Color.blue, lineWidth: 2)
